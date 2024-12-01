@@ -19,43 +19,70 @@ class CustomCurvedBottomNav extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      color: Colors.transparent,
-      height: 80,
-      child: Stack(
-        alignment: AlignmentDirectional.bottomStart,
-        clipBehavior: Clip.none,
-        children: [
-          Positioned(
-            bottom: 0,
-            left: 0,
-            right: 0,
-            child: CustomPaint(
-              size: Size(MediaQuery.of(context).size.width, 70),
-              painter: CurvedPainter(
-                  cornerRadius: cornerRadius,
-                  curve: curve,
-                  shadowColor: shadowColor,
-                  color: color,
-                  shadowOffset: shadowOffset,
-                  shadowBlur: shadowBlur),
+    return Stack(
+      alignment: AlignmentDirectional.bottomStart,
+      clipBehavior: Clip.none,
+      children: [
+        Positioned(
+          bottom: 0,
+          left: 0,
+          right: 0,
+          child: CustomPaint(
+            size: Size(MediaQuery.of(context).size.width, 70),
+            painter: CurvedPainter(
+                cornerRadius: cornerRadius,
+                curve: curve,
+                shadowColor: shadowColor,
+                color: color,
+                shadowOffset: shadowOffset,
+                shadowBlur: shadowBlur),
 
-              // foregroundPainter: CurvedPainter(),
+            // foregroundPainter: CurvedPainter(),
+          ),
+        ),
+        Positioned(
+          bottom: 5,
+          left: 0,
+          right: 0,
+          child: Padding(
+            padding: const EdgeInsets.symmetric(vertical: 0, horizontal: 16),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: items,
             ),
           ),
-          Positioned(
-            bottom: 5,
-            left: 0,
-            right: 0,
-            child: Padding(
-              padding: const EdgeInsets.symmetric(vertical: 0, horizontal: 16),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: items,
+        )
+      ],
+    );
+  }
+
+  Widget BottomNavItem(
+      {required IconData icon,
+      required String label,
+      required ontap,
+      Color color = Colors.grey}) {
+    return Material(
+      color: Colors.transparent,
+      child: InkWell(
+        radius: 40, borderRadius: BorderRadius.circular(40),
+        // splashColor: Colors.amber,
+        onTap: ontap,
+        child: Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: Column(
+            children: [
+              Icon(
+                icon,
+                size: 30,
+                color: color,
               ),
-            ),
-          )
-        ],
+              Text(
+                '$label',
+                style: TextStyle(fontSize: 12),
+              )
+            ],
+          ),
+        ),
       ),
     );
   }
